@@ -1,0 +1,56 @@
+<h2>Edit content</h2>
+<form action="" name="contentEdit">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title"  value="<?php echo $data[0]['title']; ?>" />
+
+    <label for="details">Details</label>
+    <textarea   name="details" id="details"  rows="10" cols="30" > <?php echo $data[0]['details']; ?> </textarea >
+    <button type="submit">Update</button>
+    <input type="hidden" name="control" value="content" />
+    <input type="hidden" name="dist" value="update" />
+    <input type="hidden" name="id" value="<?php echo $data[0]['id']; ?>" />
+    <a href="#" onClick="history.go(-1)"> Cancel</a>  
+</form>
+
+<script>
+// Wait for the DOM to be ready
+    $(function () {
+        $.validator.addMethod("noHTML", function (value, element) {
+            // return true - means the field passed validation No htmlcode
+            return this.optional(element) || /^[0-9a-zA-Z \b]+$/.test(value);
+        });
+
+        $.validator.addMethod("nonNumeric", function(value, element) {
+            // return true - means the field passed validation No numric
+            return this.optional(element) || !value.match(/[0-9]/);
+        });
+        // Form has the name attribute "addContent"
+        $("form[name='contentEdit']").validate({
+            // Specify validation rules
+            rules: {
+
+                title: {
+                    required: true,
+                    nonNumeric: true
+                },
+                details: {
+                    required: true,
+                    noHTML: true
+                }
+            },
+            // Specify validation error messages
+            messages: {
+                title: {required: "Please enter title",
+                    nonNumeric: "No Numeric"
+                },
+                details: {required: "Please enter details",
+                    noHTML: "No html code"
+                }
+            },
+            // Make sure the form is submitted to the destination defined
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+    });
+</script>

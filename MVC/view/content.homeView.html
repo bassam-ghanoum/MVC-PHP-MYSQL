@@ -1,0 +1,23 @@
+<h2>Listan</h2> <a href="index.php?control=content&dist=add">Add New</a>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Details</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    <?php 
+    // get the data from $data array
+    for($i= 0; $i < count($data)-1; $i++)
+    {
+    echo 
+    '<tr><td>'.
+    $data[$i]['id'].'</td><td>'.
+    $data[$i]['title'].'</td><td>'.
+    $data[$i]['details'].'</td><td>'.
+    '<a href="index.php?control=content&dist=edit&id='.$data[$i]['id'].' ">Update</a>'.'</td><td>'.
+    '<a href="index.php?control=content&dist=delete&id='.$data[$i]['id'].' ">Delete</a>'.'</td><td>'.
+    '</td><tr>';
+
+    } ?></table>
